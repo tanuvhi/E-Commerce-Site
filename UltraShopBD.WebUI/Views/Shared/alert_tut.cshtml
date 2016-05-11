@@ -1,0 +1,44 @@
+﻿
+
+
+    <link href="~/Content/style_tut.css" rel="stylesheet" />
+
+
+<script src="~/Scripts/responsiveslides.min.js"></script>
+
+
+
+
+<div class="carousel-inner" >
+    <div  id="slider">
+
+        <div class="item">
+            <img src="~/Content/ImageSlide/img1.jpg" id="image" class="img-responsive">
+        </div>
+
+        <div class="left_hold"><img onclick="photo(-1)" class="left" src="~/Content/ImageSlide/arrow_left.png"></div>
+        <div class="right_hold"><img onclick="photo(1)" class="right" src="~/Content/ImageSlide/arrow_right.png"></div>
+    </div>
+
+</div>
+
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/alert_tut")
+
+
+
+    <script language="javascript" type="text/javascript">
+
+
+        $(function () {
+            $("#slider").responsiveSlides({
+                auto: true,
+                speed: 500,
+                namespace: "callbacks",
+                pager: true,
+            });
+        });
+    </script>
+}

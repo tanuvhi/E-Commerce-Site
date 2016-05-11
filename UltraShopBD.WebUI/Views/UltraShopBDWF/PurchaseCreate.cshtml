@@ -1,0 +1,143 @@
+﻿@model UltraShopBd.Domain.UShopEntity.purchase
+
+@{
+    ViewBag.Title = "PurchaseCreate";
+    Layout = "~/Views/Shared/Admin_LayoutPage.cshtml";
+}
+
+    <div class="container col-lg-12">
+        <div class="register">
+            <div class="col-xs-12 col-sm-6 col-md-7">
+
+                <div id="ladiv">
+                    <img src='' class="img-responsive" id="show" />
+                </div>
+            </div>
+
+            @using (Html.BeginForm("PurchaseCreate", "UltraShopBDWF", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+
+                @Html.AntiForgeryToken()
+
+                <h1>Create Stock</h1>
+                <hr />
+                @Html.ValidationSummary(true)
+
+                <div class="form-group">
+                    @Html.Label("Product Name", new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBox("ProductName", null, new { @class = "form-control" })
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Product ID", new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.product_id, new { Id = "ProductId", @readonly = true, @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.product_id)
+                    </div>
+                </div>
+               <div class="form-group">
+                    @Html.Label("Color", new { @class = "col-md-2 control-label" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(model => model.color_id, ViewBag.Color as SelectList, new {  @class = "form-control" })
+
+                    </div>
+                </div>
+              
+
+                <div class="form-group">
+                    @Html.Label("Size", new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.size_id, new { @class = "form-control" })
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Quantity", new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.quantity, new { @class = "form-control", @type = "number" })
+                        @Html.ValidationMessageFor(model => model.quantity)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Selling Price", new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.selling_price, new { @class = "form-control", @type = "number" })
+                        @Html.ValidationMessageFor(model => model.selling_price)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.Label("Purchase Price", new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.purchase_price, new { @class = "form-control", @type = "number" })
+                        @Html.ValidationMessageFor(model => model.purchase_price)
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Create" class="btn btn-default" />
+                    </div>
+                </div>
+
+            }
+
+            <div>
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        </div>
+    </div>
+
+        @section Scripts {
+
+            <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+            <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+            <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+ 
+
+
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    var $searchBox = $('#ProductName');
+
+                    $searchBox.autocomplete({
+                        source: function (request, response) {
+
+                            $.ajax({
+                                url: "/UltraShopBDWF/PNameAutoComplite",
+                                
+                                dataType: "json",
+                                data: { term: request.term },
+                                success: function (data) {
+                                    response($.map(data, function (item) {
+
+                                        return {
+                                            label: item.product_name,
+                                            value: item.product_Id
+                                        };
+
+                                    }))
+
+                                }
+                            })
+                        },
+                        messages: {
+                            noResults: "", results: ""
+                        },
+                        minLength: 1,
+                        select: function (event, ui) {
+                            $('#ProductName').val(ui.item.label);
+                            $('#ProductId').val(ui.item.value);
+                            
+                            return false;
+                        }
+
+                    });
+                })
+            </script>
+        }

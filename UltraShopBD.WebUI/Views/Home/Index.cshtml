@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+   
+}
+
+
+
+
+<div class="banner">
+    <div class="col-sm-3 banner-mat">
+        <img src="~/Content/Images/ba.jpg" class="img-responsive">
+    </div>
+    
+    <div class="col-sm-6 matter-banner">
+        <div class="slider">
+            <div class="callbacks_container">
+               
+                    @Html.Partial("alert_tut")
+              
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-3 banner-mat">
+        <img src="~/Content/Images/ba1.jpg" class="img-responsive">
+
+    </div>
+    <div class="clearfix"> </div>
+</div>
+
+
+
+        <div class="container">
+            @Html.Action("ProductList", "Home")
+
+        </div>
+

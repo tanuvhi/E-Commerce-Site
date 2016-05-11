@@ -1,0 +1,41 @@
+﻿@model UltraShopBd.WebUI.Models.CategoryModel
+
+@{
+    ViewBag.Title = "SubCategoryView";
+    Layout = "~/Views/Shared/Admin_LayoutPage.cshtml";
+}
+
+<h2>SubCategoryView</h2>
+
+<p>
+    @Html.ActionLink("Create New", "SubCategoryCreate")
+</p>
+<div class="table-responsive">
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.subCategoy)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.category)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.subCategoy)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.category[item.CategoryId])
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "SubCategoryEdit", new { subCategoryId = item.SubCategoryId })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

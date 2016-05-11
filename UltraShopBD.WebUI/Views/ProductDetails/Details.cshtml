@@ -1,0 +1,195 @@
+﻿@model UltraShopBd.WebUI.Models.ProductDetailsViewModel
+
+@{
+    ViewBag.Title = "Admin";
+    int imagesCount = 200;
+}
+<meta property="og:title" content="Title of the page" />
+<title>@Model.product.Name</title>
+<meta property="og:url" content="http://www.ekhaneishob.com" />
+<meta property="og:image" content="@Url.Content(Model.product.ImageUrl)" />
+<meta property="og:description" content="@Model.product.Description" />
+
+
+<div class="container">
+
+
+    <div class="single">
+
+        
+        <h4>
+            <strong>Product Code: @Model.product.ProductId</strong>
+        </h4>
+       
+        <div class="container">
+            <div class="col-md-10">
+                <div class="col-md-7 grid">
+                    <div class="flex-slider">
+                        <div id="ladiv">
+
+                            <img src='@Url.Content(Model.product.ImageUrl)' data-imagezoom="true" class="img-responsive" id="show" style="max-height: 450px; min-width: 250px; min-height:250px; " />
+                        </div>
+                    </div>
+                </div>
+                <div class="single-para simpleCart_shelfItem">
+                    <div class="col-md-5 single-top-in">
+                        <h1>
+                            @Model.product.Name
+
+                        </h1>
+                        <p>Shipping charges are 50 Tk inside Dhaka city and 100 Tk outside Dhaka.</p>
+                        <hr />
+                        
+                        <div class="price">
+                            <h5 class="item_price">
+                                <strong>Price: ৳ @Model.product.Price.ToString()</strong>
+
+                            </h5>
+
+                        </div>
+                        <hr /><hr /><hr />
+                        <div class="clearfix"> </div>
+                        @using (Html.BeginForm("AddToCart", "Cart", new { productId = @Model.product.ProductId, quantiy = @Model.Quantity, FormMethod.Post, @class = "form-horizontal", role = "form" }))
+                        {
+
+
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    @Html.Label("Quantity:", new { @class = "control-label col-md-3 " })
+                                    <div class="col-md-5 col-xs-5 col-sm-5">
+                                        @Html.TextBoxFor(m => m.Quantity, "1", new { @class = "form-control", @type = "number" })
+
+                                    </div>
+                                </div>
+
+
+                                <div class="row " style="padding:10px 0px 0px 0px">
+                                    @Html.HiddenFor(m => m.product.ProductId)
+
+                                    @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+
+                                    <input type="submit" class="btn  btn-success btn-block" value="Add  to cart" />
+                                </div>
+                            </div>
+                        }
+
+                        <div class="row " style="padding:40px 0px 0px 0px">
+
+                            @foreach (var img in Model.files)
+                            {
+
+                                imagesCount++;
+                                if (imagesCount <= @ViewBag.FileCount + 200 && imagesCount <= 204)
+                                {
+                                    <div class="col-xs-3 col-md-3 ">
+
+                                        <img src='@Url.Content("~/Content/Image"+"/"+"p"+@Model.product.ProductId+"/"+@img)' class="img-responsive" id="@imagesCount" />
+
+                                    </div>
+                                }
+                            }
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <hr/>
+        <div class="col-md-5" style="color:gray" >
+
+            <div class="single-para simpleCart_shelfItem">
+                <h1>Product Details</h1>
+            </div>
+            @Model.product.Description
+        </div>
+            <div class="col-md-5" style="color:gray">
+                <div class="single-para simpleCart_shelfItem">
+                    <h1>Buying Process</h1>
+                    </div>
+                
+                    <p>••Check the desired product > read the description > click buy now</p>
+                <p>•• Recheck the product/products that you are willing to buy, if you want to add more products click continue shopping or click buy now to complete this step of buying process.</p> 
+                <div class="single-para simpleCart_shelfItem">
+                    <h1> Payment Mehtods</h1>
+                </div>
+                <p>•• Cash On Delivery: If you order from Dhaka then you can pay after receiving products </p>
+                <p>•• Bikash : Outside of dhaka  we take shipping charges in advance through
+
+             Bikash EkhaneiShob Bikash numbers( Merchant Account : 01790457376)
+                 </p>
+            </div>
+
+    </div>
+
+
+</div>
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <link href="~/Content/popuo-box.css" rel="stylesheet" />
+    <link href="~/Content/flexslider.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.magnific-popup.js"></script>
+    <script src="~/Scripts/imagezoom.js"></script>
+    <script language="javascript" type="text/javascript">
+
+        $(function () {
+            $("#201, #202 ,#203 ,#204").click(function (e) {
+
+                var newImg = '<img src='
+
+                                + document.getElementById(this.id).src + ' class="img-responsive" data-imagezoom="true" style="max-height: 450px; min-width: 250px; min-height:250px; "   ></img>';
+
+                $('#ladiv')
+                   .html($(newImg)
+
+                   .animate({}, 1500));
+            });
+        });
+    </script>
+
+
+
+
+
+
+    // Can also be used with $(document).ready()
+    $(window).load(function () {
+    $('.flexslider').flexslider({
+    animation: "slide",
+    controlNav: "thumbnails"
+    });
+    });
+
+    <!---pop-up-box---->
+    <link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
+    <script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
+    <!---//pop-up-box---->
+    $(document).ready(function () {
+    $('.popup-with-zoom-anim').magnificPopup({
+    type: 'inline',
+    fixedContentPos: false,
+    fixedBgPos: true,
+    overflowY: 'auto',
+    closeBtnInside: true,
+    preloader: false,
+    midClick: true,
+    removalDelay: 300,
+    mainClass: 'my-mfp-zoom-in'
+    });
+
+    });
+
+
+}
+
+
+
+

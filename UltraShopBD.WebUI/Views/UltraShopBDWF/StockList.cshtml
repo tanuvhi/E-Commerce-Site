@@ -1,0 +1,61 @@
+﻿@model UltraShopBd.WebUI.Models.UltraShopModel
+
+@{
+    ViewBag.Title = "StockList";
+    Layout = "~/Views/Shared/Admin_LayoutPage.cshtml";
+}
+
+<h2>StockList</h2>
+
+
+
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayName("Product Name")
+        </th>
+        <th>
+            @Html.DisplayName("Color")
+        </th>
+        <th>
+            @Html.DisplayName("Size")
+        </th>
+        <th>
+            @Html.DisplayName("Quantity")
+        </th>
+        <th>
+            @Html.DisplayName("Selling Price")
+        </th>
+      
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.stock)
+    {
+        <tr>
+            <td>
+                @Model.Product[ item.product_id]
+            </td>
+            <td>
+               @Model.Color[item.color_id]
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.size_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.selling_price)
+            </td>
+          
+            <td>
+             
+               
+            </td>
+        </tr>
+    }
+
+</table>

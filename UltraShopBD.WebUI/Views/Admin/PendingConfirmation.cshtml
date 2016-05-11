@@ -1,0 +1,135 @@
+﻿@model  UltraShopBd.WebUI.Models.AdminViewModel
+@{
+    ViewBag.Title = "Pending Confirmation";
+    Layout = "~/Views/Shared/Admin_LayoutPage.cshtml";
+    var count = 0;
+    var useerInfo = " ";
+
+
+    }
+<h2>Pending Confirmation</h2>
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayName("Order Date")
+        </th>
+        <th>
+            @Html.DisplayName("Name")
+        </th>
+        <th>
+            @Html.DisplayName("Contact No")
+        </th>
+        <th>
+            @Html.DisplayName("City")
+        </th>
+        <th>
+            @Html.DisplayName("Total Amount")
+        </th>
+        <th></th>
+    </tr>
+    
+    @foreach (var item in Model.order)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderDate)
+            </td>
+            <td>
+             
+            @{
+                useerInfo ="<div>  Name : "+Model.user[count].UserName+" </div>"+
+                "<div>  Phone 1 : "+Model.user[count].Phone1+" </div>"+
+                "<div>  Phone 2 : "+Model.user[count].Phone2+" </div>"+
+                "<div>  Region   :                            </div>"+
+                "<div>  City   :   "+Model.city[count].Name+"    </div>"+
+                "<div>  Address : "+Model.user[count].Address1+" </div>";
+                }
+                
+                <a data-toggle="modal" id= '@useerInfo' class="open-Info" data-target=".bootstrapmodal"><span class=" glyphicon glyphicon-eye-open"></span>@Model.user[count].UserName</a>
+
+           
+             
+
+            <td>
+                @Model.user[count].Phone1
+            </td>
+            <td>
+              @Model.city[count].Name
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalAmount)
+            </td>
+            <td>
+
+                @Html.ActionLink("Details", "Details", new { orderId = item.OrderId }, new
+                                {
+
+                                    @class = "  btn  btn-default btn-sm "
+                                  
+
+                                }) 
+               
+                @Html.ActionLink("Confirm", "Confirm", new { id = item.OrderId } ,new
+                                {
+
+                                    @class = "  btn  btn-success btn-sm "
+                                  
+
+                                })
+                @Html.ActionLink("Cancel", "Cancel", new { id = item.OrderId }, new
+                                {
+
+                                    @class = "  btn btn-danger btn-sm "
+
+
+                                })
+            </td>
+        </tr>
+        count++;
+    }
+
+</table>
+
+
+
+@section Scripts {
+
+    <script type="text/javascript">
+
+        $(document).on("click", ".open-Info", function () {
+          
+           var   c = $(this).attr('id');
+
+
+            $(".modal-body #fff").html(c);
+            $('#bootstrapmodal').modal('show');
+        });
+    </script>
+}
+
+
+
+<div class="modal fade bootstrapmodal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                hello
+
+            </div>
+            <div class="modal-body">
+
+                <div id="fff"></div>
+              
+
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+
+    </div>
+
+
+</div>

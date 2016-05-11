@@ -1,0 +1,53 @@
+﻿@model  UltraShopBd.WebUI.Models.AdminViewModel
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/Admin_LayoutPage.cshtml";
+    var count = 0;
+}
+
+<h2>Details</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.Display("Image")
+        </th>
+        <th>
+            @Html.DisplayName("Product Name")
+        </th>
+
+        <th>
+            @Html.DisplayName("Quantity")
+        </th>
+        <th>
+            @Html.DisplayName("Total")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.orderDetails)
+    {
+        <tr>
+            <td class="col-md-2">
+                <img src='@Url.Content(Model.product[count].ImageUrl)' class="img-responsive" />
+            </td>
+            <td>
+                @Model.product[count].Name
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+            <td>
+                @Html.ActionLink("Cancel", "Cancel", new { id = item.Id })
+            </td>
+        </tr>
+        count++;
+    }
+
+</table>

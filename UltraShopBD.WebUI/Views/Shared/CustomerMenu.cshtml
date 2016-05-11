@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "CustomerMenu";
+    Layout = null;
+}
+
+
+@Html.RouteLink("My Purchases", new
+                                {
+                                    controller = "Customer",
+                                    action = "Purchase",
+
+                                },
+                                new
+                                {
+
+                                    @class = "  btn btn-block btn-info btn-lg "
+
+                                })
+
+@Html.RouteLink("Account Settings", new
+                                {
+                                    controller = "Admin",
+                                    action = "Index",
+
+                                },
+                                new
+                                {
+
+                                    @class = "  btn btn-block btn-info btn-lg "
+
+                                })
+

@@ -1,0 +1,12 @@
+﻿@model UltraShopBd.Domain.Entities.Cart
+
+
+
+<a href="@Url.Action("Index", "Cart")">
+    <h3>
+        <div class="total">
+            <span > @Model.ComputeTotalValue().ToString() Tk</span>
+        </div>
+        <img src="~/Content/Images/cart.png" alt="" />
+    </h3>
+</a>

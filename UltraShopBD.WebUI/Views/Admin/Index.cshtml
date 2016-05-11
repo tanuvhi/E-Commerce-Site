@@ -1,0 +1,68 @@
+﻿@model IEnumerable<UltraShopBd.Domain.Entities.Product>
+
+@{
+    ViewBag.Title = "Admin";
+    Layout = "~/Views/Shared/Admin_LayoutPage.cshtml";
+}
+
+
+<div class="panel panel-body">
+    <div class="panel-heading">
+        @Html.ActionLink("Add  New Product", "Upload", "Product", null, new { @class = "btn btn-default" })
+        @Html.ActionLink("Product Hide List",  "HideList", null, new { @class = "btn btn-default" })
+        <div class="center-block"><center><h3>Active Product List</h3> </center></div>
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped table-condensed table-bordered">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+              
+                
+                <th></th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductId)
+                    </td>
+                    <td>
+                       @Html.ActionLink(item.Name,"Edit",new{item.ProductId})
+                    </td>
+              
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                  
+                    
+                    <td>
+                      
+                        @Html.ActionLink("Delete", "DeleteProduct", new { @class = "btn btn-default btn-xs", ProductID = item.ProductId })
+                    </td>
+                    <td>
+
+                        @Html.ActionLink("Hide", "ActiveOrHide", new { @class = "btn btn-default btn-xs", ProductID = item.ProductId ,ActiveID= item.Activity })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+    <div class="panel-footer">
+       
+    </div>
+
+</div>
+
+

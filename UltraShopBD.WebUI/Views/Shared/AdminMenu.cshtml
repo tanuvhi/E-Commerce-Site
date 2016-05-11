@@ -1,0 +1,108 @@
+﻿@{
+    ViewBag.Title = "AdminMenu";
+    Layout = null;
+}
+
+@Html.RouteLink("Pending Confirmation", new
+                                {
+                                    controller = "Admin",
+                                    action = "PendingConfirmation"
+
+                                },
+                                new
+                                {
+
+                                    @class = "  btn btn-block btn-info btn-lg "
+
+
+                                })
+
+
+@Html.RouteLink("Add A New Product", new
+                                {
+                                    controller = "Product",
+                                    action = "Upload",
+
+                                },
+                                new
+                                {
+
+                                    @class = "btn btn-block btn-info btn-lg "
+
+                                })
+
+@Html.RouteLink("Product List", new
+                                {
+                                    controller = "Admin",
+                                    action = "Index",
+
+                                },
+                                new
+                                {
+
+                                    @class = "  btn btn-block btn-info btn-lg "
+
+                                })
+
+@Html.RouteLink("Category", new
+                                {
+                                    controller = "Admin",
+                                    action = "CategoryView",
+
+                                },
+                                new
+                                {
+
+                                    @class = "  btn btn-block btn-info btn-lg "
+
+                                })
+@Html.RouteLink("Sub Category", new
+                                {
+                                    controller = "Admin",
+                                    action = "SubCategoryView",
+
+                                },
+                                new
+                                {
+
+                                    @class = "  btn btn-block btn-info btn-lg "
+
+                                })
+
+@Html.RouteLink(" User", new
+                                {
+                                    controller = "Admin",
+                                    action = "UserView",
+                                    
+                                },
+                                new
+                                {
+
+                                    @class = "btn btn-info btn-block btn-lg    "
+
+                                })
+
+@Html.RouteLink("Purchase", new
+                                {
+                                    controller = "UltraShopBDWF",
+                                    action = "PurchaseList",
+
+                                },
+                                new
+                                {
+
+                                    @class = "btn btn-info btn-block btn-lg   "
+
+                                })
+@Html.RouteLink(" Stock", new
+                                {
+                                    controller = "UltraShopBDWF",
+                                    action = "StockList",
+
+                                },
+                                new
+                                {
+
+                                    @class = "btn btn-info btn-block btn-lg   "
+
+                                })

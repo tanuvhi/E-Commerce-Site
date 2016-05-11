@@ -1,0 +1,195 @@
+﻿@model  UltraShopBd.WebUI.Models.ProductListViewModel
+
+@{
+
+    ViewBag.Title = "Admin";
+    Layout = "~/Views/Shared/Admin_LayoutPage.cshtml";
+}
+
+
+
+
+
+<h2> @ViewBag.Title</h2>
+@using (Html.BeginForm("Upload", "Product", FormMethod.Post, new {enctype="multipart/form-data", @class = "form-horizontal", role = "form" }))
+{
+    <h4>Add a new product.</h4>
+    <hr />
+@Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+    <div class="form-group">
+        @Html.LabelFor(m => m.ProductU.Name, new { @class = "col-md-2 control-label"})
+        <div class="col-md-10" >
+            @Html.TextBoxFor(m => m.ProductU.Name, new {  @id = "Username" ,@class = "form-control" })
+
+            <div id="chkAvailable"></div>
+        </div>
+        
+    </div>
+    <div class="form-group">
+        @Html.LabelFor( m=> m.ProductU.Price, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.ProductU.Price, new { @class = "form-control"})
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ProductU.CategoryId, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(m => m.ProductU.CategoryId, ViewBag.Cetegory as SelectList, new { @id = "categoryId", @class = "form-control" })
+
+        </div>
+    </div>
+   <div class="form-group">
+              @Html.LabelFor(m => m.ProductU.SubCategoryId, new { @class = "col-md-2 control-label" })
+              <div class="col-md-10" id="District">
+                  @Html.DropDownListFor(m => m.ProductU.SubCategoryId, ViewBag.SubCategory as SelectList, new { @id = "SubCatId", @class = "form-control" })
+                  <span id="states-loading-progress" style="display: none;">Please wait..</span>
+              </div>
+          </div>
+    
+     <div class="form-group">
+        @Html.LabelFor(m=>m.File, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+
+            <input type="file" name="File" accept="image/*" id="File" multiple="multiple" size="30" />
+          
+        </div>
+    </div>
+    
+    <div id="dvPreview">
+
+    </div>
+       <div class="form-group">
+        @Html.LabelFor( m=> m.ProductU.Description, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(m=>m.ProductU.Description, new { @class = "form-control" })
+        </div>
+    </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" class="btn btn-default" id="upload" value="submit" />
+            </div>
+        </div>
+}
+
+
+@section Scripts {
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#upload').bind("click", function () {
+            var imgVal = $('#File').val();
+            if (imgVal == '') {
+                alert("Please Ad image");
+                return false;
+            }
+            else {
+                return true;
+            }
+            
+
+        });
+    });
+</script> 
+
+    <script type="text/javascript">
+    $(function () {
+        $("#categoryId").change(function () {
+            var selectedItem = $(this).val();
+            var ddlStates = $("#SubCatId");
+            var statesProgress = $("#states-loading-progress");
+            statesProgress.show();
+            $.ajax({
+                cache: false,
+                type: "Post",
+                url: "@(Url.RouteUrl("GetSubCategoryByCategoryId"))",
+                    data: { "catId": selectedItem },
+                    success: function (data) {
+                        ddlStates.html('');
+                        $.each(data, function (id, option) {
+                            ddlStates.append('<option value="' + option.id + '">' + option.name + '</option>');
+                        });
+
+                        statesProgress.hide();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert('Failed to retrieve states.');
+                        statesProgress.hide();
+                    }
+                });
+            });
+        });
+
+        window.onload = function () {
+            var fileUpload = document.getElementById("File");
+            fileUpload.onchange = function () {
+                if (typeof (FileReader) != "undefined") {
+                    var dvPreview = document.getElementById("dvPreview");
+                    dvPreview.innerHTML = "";
+                    var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.jpg|.jpeg|.gif|.png|.bmp)$/;
+                    for (var i = 0; i < fileUpload.files.length; i++) {
+                        var file = fileUpload.files[i];
+                        
+                        if (regex.test(file.name.toLowerCase())) {
+                            var reader = new FileReader();
+                            reader.onload = function (e) {
+                                var img = document.createElement("IMG");
+                                img.height = "100";
+                                img.width = "100";
+                               
+                                img.src = e.target.result;
+                                
+                                dvPreview.appendChild(img);
+                              
+                            }
+                            reader.readAsDataURL(file);
+                        } else {
+                            alert(file.name + " is not a valid image file.");
+                            dvPreview.innerHTML = "";
+                            return false;
+                        }
+                    }
+                } else {
+                    alert("This browser does not support HTML5 FileReader.");
+                }
+            }
+        };
+
+        //check product name
+
+
+
+          $(document).ready(function () {
+        $('#Username').on('change', function () {
+            var getName = $(this).val();
+           
+            $.ajax({
+               
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                url: "@(Url.RouteUrl("CheckName"))",
+                data: "{ 'name':' " + getName + "' }",
+                success: function (data) {
+                    if (data == "Available") {
+                        $('#chkAvailable').html('Product Is ' + data);
+                        $('#chkAvailable').css('color', 'green');
+
+                    } else {
+                        $('#chkAvailable').html('Product Name Is ' + data);
+                        $('#chkAvailable').css('color', 'red');
+                        $('#Username').focus();
+                    }
+                },
+                error: function (data) {
+                    alert('Error in getting result');
+                }
+            });
+        });
+    })
+
+
+
+
+    </script>
+}

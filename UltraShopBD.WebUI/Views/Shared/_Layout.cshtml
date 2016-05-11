@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+ 
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery.min.js"></script>
+    <link href="~/Content/style.css" rel="stylesheet" />
+  
+
+    <script src="~/Scripts/simpleCart.min.js"></script>
+</head>
+<body>
+   
+    <div class="header">
+        <div class="header-top">
+            <div class="container">
+                <div class="col-sm-4 ">
+                    <span><i class="glyphicon glyphicon-phone"></i>01790457376</span>
+                </div>
+                <div class="col-sm-4 logo">
+                    <a href="@Url.Action("index", "home")"><img src="~/Content/OtherImage/logo.png" alt=""></a>
+                </div>
+
+                <div class="col-sm-4 header-left">
+                    <p class="log">
+                        @Html.Partial("_LoginPartial")
+                      
+                    </p>
+                    <div class="cart box_1">
+                    @Html.Action("Summary", "Cart")
+                           
+                         
+
+</div>
+                    
+                </div>
+             
+            </div>
+        </div>
+        </div>
+
+
+ 
+
+  
+        <div class="container">
+            @Html.Action("Menu", "Nav")
+
+        </div>
+
+
+
+           
+                <div class="col-lg-12  container">
+                    @if (TempData["message"] != null)
+                    {
+                        <div class="alert alert-success">@TempData["message"]</div>
+                    }
+                 
+                </div>
+
+
+    @RenderBody()
+    <hr />
+       
+        <div class="container" style="margin-top:0px ;margin-bottom:5px">
+            <div style="float:left">
+                <h1>PAYMENT METHOD</h1>
+            </div>
+            <div style="float:right">
+                <img src="~/Content/OtherImage/ps.jpg" class="img-responsive"/>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom" style="background-color:aqua">
+         
+            <div class="container">
+                @Html.Action("Menu2", "Nav")
+          
+
+            </div>
+        </div>
+
+
+
+        <footer></footer>
+
+        @Scripts.Render("~/bundles/alert_tut")
+        @Scripts.Render("~/bundles/jquery.min")
+        @Scripts.Render("~/bundles/responsiveslides.min")
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+
+
+
+
+</body>
+</html>

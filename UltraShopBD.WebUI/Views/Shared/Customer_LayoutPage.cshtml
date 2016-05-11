@@ -1,0 +1,71 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+    <link href="~/Content/style.css" rel="stylesheet" />
+
+
+    <title></title>
+
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="header">
+        <div class="header-top">
+            <div class="container">
+                <div class="col-sm-4 ">
+                    <span><i class="glyphicon glyphicon-phone"></i>01790457376</span>
+                </div>
+                <div class="col-sm-4 logo">
+                    <a href="@Url.Action("index", "home")"><img src="~/Content/OtherImage/logo.png" alt=""></a>
+                </div>
+
+                <div class="col-sm-4 header-left">
+                    <p class="log">
+                        @Html.Partial("_LoginPartial")
+
+                    </p>
+                    <div class="cart box_1">
+                        @Html.Action("Summary", "Cart")
+
+
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        <div class="row panel" style="padding-top:40px">
+
+            <div class="col-lg-2 ">
+            @Html.Partial("CustomerMenu")
+            </div>
+
+
+            <div class="col-lg-10 ">
+                @if (TempData["message"] != null)
+                {
+                    <div class="alert alert-success">@TempData["message"]</div>
+                }
+          
+                @RenderBody()
+            </div>
+
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+
+</body>
+</html>

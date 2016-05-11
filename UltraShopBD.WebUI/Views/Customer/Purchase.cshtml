@@ -1,0 +1,60 @@
+﻿@model  UltraShopBd.WebUI.Models.CustomerViewModel
+
+@{
+    ViewBag.Title = "View1";
+    Layout = "~/Views/Shared/Customer_LayoutPage.cshtml";
+    
+}
+
+
+
+
+<table class="table">
+    <tr>
+        
+        <th>
+            @Html.DisplayName("Order Date")
+        </th>
+        <th>
+            @Html.DisplayName("Oder Status")
+        </th>
+        <th>
+            @Html.DisplayName("Product Price")
+        </th>
+        <th>
+            @Html.DisplayName("Delivery Charge")
+        </th>
+        <th>
+            @Html.DisplayName("Total Amount")
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.order) {
+    <tr>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.OrderDate)
+        </td>
+        <td>
+            
+           @Model.orderStatus[@item.OrderStatusId-1].StatusName
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeliveryCharge)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalAmount)
+        </td>
+        <td>
+            
+            @Html.ActionLink("Details", "Details", new { orderId=item.OrderId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.OrderId })
+        </td>
+    </tr>
+}
+
+</table>

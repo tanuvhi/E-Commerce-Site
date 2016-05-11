@@ -1,0 +1,97 @@
+﻿@model UltraShopBd.Domain.UShopEntity.otherexpense
+
+@{
+    ViewBag.Title = "OtherExpenseCreate";
+    Layout = "~/Views/Shared/Admin_LayoutPage.cshtml";
+}
+
+<h2>OtherExpenseCreate</h2>
+
+
+@using (Html.BeginForm("OtherExpenseCreate", "UltraShopBDWF", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>otherexpense</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        <div class="form-group">
+            @Html.Label("Product Name", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("Name", null, new { @class = "form-control" })
+
+            </div>
+        </div>
+        
+                @Html.Hidden("ListId");
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.prise, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.prise)
+                @Html.ValidationMessageFor(model => model.prise)
+            </div>
+        </div>
+
+     
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+@section Scripts {
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var $searchBox = $('#ProductName');
+
+            $searchBox.autocomplete({
+                source: function (request, response) {
+
+                    $.ajax({
+                        url: "/UltraShopBDWF/OExpAutoComplite",
+                        type: "POST",
+                        dataType: "json",
+                        data: { term: request.term },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+
+                                return {
+                                    label: item.product_name,
+                                    value: item.product_Id
+                                };
+
+                            }))
+
+                        }
+                    })
+                },
+                messages: {
+                    noResults: "", results: ""
+                },
+                minLength: 1,
+                select: function (event, ui) {
+                    $('#Name').val(ui.item.label);
+                    $('#ListId').val(ui.item.value);
+
+                    return false;
+                }
+
+            });
+        })
+    </script>
+}

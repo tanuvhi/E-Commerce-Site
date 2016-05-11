@@ -1,0 +1,20 @@
+@charset "utf-8";
+#header
+{
+background:#999999;
+width:1100px;
+height:150px;
+}
+#menu
+{
+background:#3300CC;
+width:200px;
+height:auto;
+}
+#footer
+{
+background:#00FFFF;
+width:1100px;
+height:120px;
+}
+

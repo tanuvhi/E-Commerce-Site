@@ -1,0 +1,55 @@
+﻿@model UltraShopBd.WebUI.Models.NavViewModel
+
+
+<div class="col-sm-3 footer-bottom-cate">
+    <h6>Categories</h6>
+    <ul>
+        @foreach (var item in Model.Categories)
+            {
+
+        <li>
+            @Html.RouteLink(item.Name, new
+                    {
+                        controller = "Product",
+                        action = "List",
+                        CategoryId = item.CategoryId,
+
+                        Page = 1
+                    })
+        </li>
+                    }
+    </ul>
+</div>
+<div class="col-sm-3 footer-bottom-cate">
+    <h6>ABOUT</h6>
+    <ul>
+        <li><a href="#">About us</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms and Conditions</a></li>
+        <li><a href="#">Return Policy</a></li>
+        <li><a href="#">Delivery Information</a></li>
+
+    </ul>
+</div>
+<div class="col-sm-3 footer-bottom-cate">
+    <h6>Our Services</h6>
+    <ul>
+        <li><a href="#">Fast Delivery</a></li>
+        <li><a href="#">7 Days Replacement</a></li>
+        <li><a href="#">Cash On Delivery</a></li>
+
+
+    </ul>
+</div>
+<div class="col-sm-3 footer-bottom-cate cate-bottom">
+    <h6>Our Address</h6>
+    <ul>
+        <li>Azimpur </li>
+        <li>Cahapra moszid</li>
+        <li> Dhaka</li>
+        <li>Bangladesh</li>
+        <li></li>
+        <li class="phone">PH :01723429022 ,01790457376</li>
+    </ul>
+</div>
+<div class="clearfix"> </div>

@@ -1,0 +1,60 @@
+﻿@model IEnumerable<UltraShopBd.Domain.Entities.User>
+
+@{
+    ViewBag.Title = "UserView";
+    Layout = "~/Views/Shared/Admin_LayoutPage.cshtml";
+}
+
+<h2>UserView</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        
+    
+        <th>
+            @Html.DisplayNameFor(model => model.Phone1)
+        </th>
+      
+      
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+       
+        <th>
+            @Html.DisplayNameFor(model => model.UserStatusId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+      
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.Phone1)
+        </td>  
+      
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.UserStatusId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "UserEdit", new { userId=item.UserId }) 
+          
+        </td>
+    </tr>
+}
+
+</table>
